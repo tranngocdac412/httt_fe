@@ -38,7 +38,8 @@ class HomePage extends Component {
     }
 
     onSub = () => {
-        var path = ''
+        var path = '';
+        var results = '';
         this.state.uuids.forEach(uuid => {
             path += "&&" + uuid;
         })
@@ -46,8 +47,15 @@ class HomePage extends Component {
             api("computererrormarks/marks", path, 'GET', null)
                 .then(res => {
                     console.log(res.data.data)
-                    if(res.data.data.length != 0) {
-                        alert(`Chẩn đoán: ${res.data.data[0].description} \nGiải pháp: ${res.data.data[0].solution}`)
+                    if(res.data.data.length != 0 && res.data.data[0].value > 0.6) {
+                        res.data.data.forEach(data => {
+                            if(data.value >= 0.6) {
+                                results += `\nChẩn đoán: ${data.description} \nGiải pháp ${data.solution} \n`;
+                            }
+                        })
+                        // alert(`Chẩn đoán: ${res.data.data[0].description} \nGiải pháp: ${res.data.data[0].solution}`)
+                        alert(results);
+                        window.location.reload();
                     }
                     else {
                         alert("Không đủ dữ liệu")
