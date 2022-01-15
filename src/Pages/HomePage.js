@@ -47,7 +47,7 @@ class HomePage extends Component {
             api("computererrormarks/marks", path, 'GET', null)
                 .then(res => {
                     console.log(res.data.data)
-                    if(res.data.data.length != 0 && res.data.data[0].value > 0.6) {
+                    if(res.data.data.length != 0 && res.data.data[0].value > 0.5) {
                         res.data.data.forEach(data => {
                             if(data.value >= 0.6) {
                                 results += `\nChẩn đoán: ${data.description} \nGiải pháp ${data.solution} \n`;
