@@ -49,8 +49,14 @@ class HomePage extends Component {
                     console.log(res.data.data)
                     if(res.data.data.length != 0 && res.data.data[0].value >= 0.5) {
                         res.data.data.forEach(data => {
-                            if(data.value >= 0.5) {
-                                results += `\nChẩn đoán: ${data.description} \nGiải pháp ${data.solution} \n`;
+                            if(data.value >= 0.9) {
+                                results += `\nChẩn đoán: (Gần như chắc chắn) ${data.description} \nGiải pháp ${data.solution} \n`;
+                            }
+                            else if (data.value >= 0.7) {
+                                results += `\nChẩn đoán: (Rất có thể) ${data.description} \nGiải pháp ${data.solution} \n`;
+                            }
+                            else if(data.value >= 0.5) {
+                                results += `\nChẩn đoán: (Có thể) ${data.description} \nGiải pháp ${data.solution} \n`;
                             }
                         })
                         // alert(`Chẩn đoán: ${res.data.data[0].description} \nGiải pháp: ${res.data.data[0].solution}`)
